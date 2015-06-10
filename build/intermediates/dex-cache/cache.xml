@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\asus\Downloads\hitesh\Website_Analyser\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="C:\Users\asus\Downloads\hitesh\Website_Analyser\app\build\intermediates\pre-dexed\debug\classes-bc29245673a0f22cc867d011fe80089beb7a03c1.jar" />
+    </item>
+    <item
+        jar="C:\Users\asus\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.2.4\a60a5e993c98c864010053cb901b7eab25306568\gson-2.2.4.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="C:\Users\asus\Downloads\hitesh\Website_Analyser\app\build\intermediates\pre-dexed\debug\gson-2.2.4-019b216a7dbcca39eb78a7267d5f1aa55593ee5e.jar" />
+    </item>
+    <item
+        jar="C:\Users\asus\Downloads\hitesh\Website_Analyser\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="C:\Users\asus\Downloads\hitesh\Website_Analyser\app\build\intermediates\pre-dexed\debug\classes-d9eddf8028f8c52a4bf36b816b629ec62dc769ae.jar" />
+    </item>
+    <item
+        jar="C:\Users\asus\AppData\Local\Android\sdk1\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="C:\Users\asus\Downloads\hitesh\Website_Analyser\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-c6680eb4dfff6e6ecb52ed68afc2523e0761e7df.jar" />
+    </item>
+    <item
+        jar="C:\Users\asus\Downloads\hitesh\Website_Analyser\app\libs\volley.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
+        <dex dex="C:\Users\asus\Downloads\hitesh\Website_Analyser\app\build\intermediates\pre-dexed\debug\volley-910a9bf26195ef2e69d2c37dcafe690e195f5102.jar" />
+    </item>
+    <item
+        jar="C:\Users\asus\Downloads\hitesh\Website_Analyser\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="C:\Users\asus\Downloads\hitesh\Website_Analyser\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-cb64ffa8f31fceaff949c31c467e74c2c598a108.jar" />
+    </item>
+
+</items>
