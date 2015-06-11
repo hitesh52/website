@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener {
     EditText e1, e2;
@@ -24,29 +24,27 @@ public class MainActivity extends Activity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-       if (v.getId() == R.id.button) {
-           /*
+        if (v.getId() == R.id.button) {
+
             String s1 = e1.getText().toString();
             String s2 = e2.getText().toString();
-               if (s1.length() == 0 || s2.length() == 0) {
-                   Toast.makeText(this, "WRONG INPUT", 1).show();
+            if (s1.length() == 0 || s2.length() == 0) {
+                Toast.makeText(this, "WRONG INPUT", 1).show();
 
-                }
-               else
-                {
+            } else {
                 DBhelper obj = new DBhelper(this);
                 obj.saverecord(s1, s2);
                 Toast.makeText(this, "LOGIN SUCCESSFUL", 2).show();
-                */
-                    Intent in = new Intent(getApplicationContext(),apitask1.class);
-                    startActivity(in);
 
-                   }
+            }
+            Intent in = new Intent(getApplicationContext(), apitask.class);
 
+            startActivity(in);
 
-        }}
+        }
 
-
+    }
+}
 
 
 

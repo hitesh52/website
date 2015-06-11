@@ -24,7 +24,6 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,51 +32,47 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class apitask1 extends Activity
-{
-
-    String URL_website = "WWW.vocabmonk.com";
+public class apitask2 extends Activity {
+    Intent i = getIntent();
+    String final_api_id = i.getStringExtra("api_id");
+    String URL_website ="WWW.vocabmonk.com";
+    //String id_apitask1="03ca9ae01cc4e5f25eb5554524510aff";
     EditText etResponse;
-    TextView tv;
+    TextView tvIsConnected;
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-     {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.loading_website_result);
+        setContentView(R.layout.website_result);
         // get reference to the views
-           //etResponse = (EditText) findViewById(R.id.etResponse);
-            tv = (TextView) findViewById(R.id.textView2);
-            // check if you are connected or not
-            if (isConnected())
-            {
-                tv.setBackgroundColor(0xFF00CC00);
-                tv.setText("You are conncted" +
-                        "LOADING RESULTS");
-            } else
-            {
-                tv.setText("You are NOT conncted");
-             }
+        etResponse = (EditText) findViewById(R.id.etResponse);
+        tvIsConnected = (TextView) findViewById(R.id.tvIsConnected);
+        // check if you are connected or not
+        if(isConnected()){
+            tvIsConnected.setBackgroundColor(0xFF00CC00);
+            tvIsConnected.setText("You are conncted");
+        }
+        else{
+            tvIsConnected.setText("You are NOT conncted");
+        }
 
         //call AsynTask to perform network operation on separate thread
-        new HttpAsyncTask().execute("https://apiv2dev.rankwatch.com/wa/sendurl/json/");
+        new HttpAsynTask().execute("https://apiv2dev.rankwatch.com/wa/wadetails/json/");
     }
-    public String GET(String url)
-    {
+
+    public String GET(String url){
         InputStream inputStream = null;
         String result = "";
-        String result1="";
         try {
 
             DefaultHttpClient httpClient = new DefaultHttpClient();
-            String username = "wa-v2-01-12345";
-            String password = "123456789";
+            String username= "wa-v2-01-12345";
+            String password ="123456789";
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-            nameValuePairs.add(new BasicNameValuePair("url", URL_website));
-            nameValuePairs.add(new BasicNameValuePair("module", "seo"));
+            nameValuePairs.add(new BasicNameValuePair("id", final_api_id));
             nameValuePairs.add(new BasicNameValuePair("callback", "WWW.vocabmonk.com"));
             String paramsString = URLEncodedUtils.format(nameValuePairs, "UTF-8");
-            HttpGet httpGet = new HttpGet(url + "basic-auth/user/passwd" + "?" + paramsString);
-            UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
+            HttpGet httpGet = new HttpGet(url+"basic-auth/user/passwd"+"?"+paramsString);
+            UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username,password);
             BasicScheme scheme = new BasicScheme();
             Header authorizationHeader = scheme.authenticate(credentials, httpGet);
             httpGet.addHeader(authorizationHeader);
@@ -85,32 +80,22 @@ public class apitask1 extends Activity
             // receive response as inputStream
             inputStream = httpResponse.getEntity().getContent();
             // convert inputstream to string
-                if (inputStream != null)
-                {
-                 result = convertInputStreamToString(inputStream);
-                 JSONObject json = new JSONObject(result);
-                 JSONObject json_LL = json.getJSONObject("data");
-                 String str_value=json_LL.getString("id");
-                 result1 = str_value;
-                }
-               else
-                {
-                  result = "Did not work!";
+            if(inputStream != null)
+                result = convertInputStreamToString(inputStream);
+            else
+                result = "Did not work!";
+        } catch (Exception e) {
+            Log.d("InputStream", e.getLocalizedMessage());
+        }
 
-                }
-              } catch (Exception e) {
-                 Log.d("InputStream", e.getLocalizedMessage());
-                 }
+        return result;
+    }
 
-        return result1;
-     }
-
-    private static String convertInputStreamToString(InputStream inputStream) throws IOException
-    {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException{
+        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
         String line = "";
         String result = "";
-        while ((line = bufferedReader.readLine()) != null)
+        while((line = bufferedReader.readLine()) != null)
             result += line;
 
         inputStream.close();
@@ -118,8 +103,7 @@ public class apitask1 extends Activity
 
     }
 
-    public boolean isConnected()
-    {
+    public boolean isConnected(){
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected())
@@ -127,25 +111,25 @@ public class apitask1 extends Activity
         else
             return false;
     }
-
-    public class HttpAsyncTask extends AsyncTask<String, Void, String>
-    {
+    private class HttpAsynTask extends AsyncTask<String, Void, String> {
         @Override
-        protected String doInBackground(String... urls)
-        {
+        protected String doInBackground(String... urls) {
             return GET(urls[0]);
         }
-
         // onPostExecute displays the results of the AsyncTask.
         @Override
-        protected void onPostExecute(String result)
-        {
+        protected void onPostExecute(String result) {
             Toast.makeText(getBaseContext(), "Received!", Toast.LENGTH_LONG).show();
-           // etResponse.setText(result);
-            Intent i =new Intent(apitask1.this ,apitask2.class);
-            i.putExtra("api_id",result);
-            startActivity(i);
-        }
-    }
+            etResponse.setText(result);
 
+
+        }
+
+
+
+
+
+
+
+    }
 }

@@ -3,16 +3,12 @@ package com.localexample.website_analyser;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-import static android.support.v4.app.ActivityCompat.startActivity;
 
 public class DBhelper extends SQLiteOpenHelper {
 
-    public static String query="create table login2(user_id integer primary key autoincrement, username text, password text)";
+   // public static String query="create table login16 (user_id integer primary key autoincrement, username text, password text)";
     public static String column1="username";
     public static String column2="password";
     static int db_version=1;
