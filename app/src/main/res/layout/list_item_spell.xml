@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout48">
+
+            <TextView
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:background="#b0b0b0"
+                android:textColor="#000000"
+                android:id="@+id/textView35"
+                android:text="Substitution" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:background="#b0b0b0"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:id="@+id/textView36"
+                android:text="Suggestion" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_below="@+id/linearLayout48"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/linearLayout49">
+
+            <TextView
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:id="@+id/Substitution" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:id="@+id/Suggestion" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/linearLayout49"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout56">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Information"
+                android:background="#b0b0b0"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:id="@+id/textView34" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/linearLayout56"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="15dp"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:id="@+id/INFORMATION" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

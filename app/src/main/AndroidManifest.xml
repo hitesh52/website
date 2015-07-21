@@ -1,38 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.localexample.website_analyser" >
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+        <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+        <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+        <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
-            android:name =".Splash"
+            android:name ="com.localexample.Splash"
             android:label= "Website_Analyser">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name =".apitask"
+            android:name ="com.localexample.HomeActivity"
             android:label= "Website_Analyser">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />>
+                <category android:name="android.intent.category.default" />
+            </intent-filter>
         </activity>
         <activity
-            android:name =".apitask1"
+            android:name ="com.localexample.SignUPActivity"
             android:label= "Website_Analyser">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />>
+                <category android:name="android.intent.category.default" />
+            </intent-filter>
         </activity>
         <activity
-            android:name =".apitask2"
+            android:name ="com.localexample.website_name"
             android:label= "Website_Analyser">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />>
+                <category android:name="android.intent.category.default" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name ="com.localexample.MainActivity"
+            android:label= "Website_Analyser">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />>
+                <category android:name="android.intent.category.default" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name ="com.localexample.MainActivity_mobile"
+            android:label= "Website_Analyser">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />>
+                <category android:name="android.intent.category.default" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name ="com.localexample.MainActivity_seo"
+            android:label= "Website_Analyser">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />>
+                <category android:name="android.intent.category.default" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name ="com.localexample.MainActivity_spell"
+            android:label= "Website_Analyser">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />>
+                <category android:name="android.intent.category.default" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name ="com.localexample.MainActivity_technology"
+            android:label= "Website_Analyser">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />>
+                <category android:name="android.intent.category.default" />
+            </intent-filter>
         </activity>
     </application>
+
 
 </manifest>

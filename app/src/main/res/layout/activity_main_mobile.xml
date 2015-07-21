@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+    <!-- Main ListView
+         Always give id value as list(@android:id/list)
+    -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_gravity="right">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout57">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:id="@+id/imageView4" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="30dp"
+                android:textStyle="normal"
+                android:gravity="left"
+
+                android:text="Mobile"
+                android:id="@+id/textView37" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@+id/linearLayout57"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout58">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imageView6"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/final_apple" />
+
+            <WebView
+                android:layout_width="115dp"
+                android:layout_height="190dp"
+                android:id="@+id/MOBILE_VIEW"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="-240dp"
+                android:layout_marginTop="-0dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/linearLayout58"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout71"></LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@+id/linearLayout71"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout72">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imageView7"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/mac" />
+
+            <WebView
+                android:layout_width="218dp"
+                android:layout_height="138dp"
+                android:id="@+id/MAC_VIEW"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="-292dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/linearLayout72"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout73">
+
+            <TextView
+                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:text="Mobile Rendering"
+                android:id="@+id/textView43" />
+
+            <CheckBox
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/MOBILE_RENDER"
+                android:checked="false"
+                android:enabled="true"
+                android:clickable="false"
+                 />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/linearLayout73"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout74">
+
+            <TextView
+                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:text="View Port Tag"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:id="@+id/textView44" />
+
+            <CheckBox
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/VIEWPORTTAG"
+                android:checked="false"
+
+                android:clickable="false"
+                android:enabled="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/linearLayout74"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout75">
+
+            <TextView
+                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:text="No Flash Content"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:id="@+id/textView45" />
+
+            <CheckBox
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/NOFLASHCONTENT"
+                android:checked="false"
+                android:enabled="true"
+                android:clickable="false"
+                 />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/linearLayout75"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:text="Apple Icon"
+                android:id="@+id/textView46" />
+
+            <CheckBox
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/APPLE_ICON"
+                android:checked="false"
+                android:enabled="true"
+                android:clickable="false"
+                 />
+        </LinearLayout>
+
+    </RelativeLayout>
+    </ScrollView>
+</LinearLayout>
+

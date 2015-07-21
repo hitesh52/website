@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+    <!-- Main ListView
+         Always give id value as list(@android:id/list)
+    -->
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_gravity="right">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout57">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:id="@+id/imageView4" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="30dp"
+                android:textStyle="normal"
+                android:gravity="left"
+
+                android:text="Traffic"
+                android:id="@+id/textView37" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/linearLayout57"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout58"></LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/linearLayout58"
+            android:layout_centerHorizontal="true"
+            android:baselineAligned="false"
+            android:id="@+id/linearLayout59">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Traffic Estimator : "
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="left"
+                android:id="@+id/textView38" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/linearLayout59"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout60">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/progressBar2"
+                android:minHeight="50dp"
+
+                android:indeterminate="false"
+                android:max="10" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/linearLayout60"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout61"></LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/linearLayout61"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout62">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Global Rank :"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="left"
+                android:id="@+id/textView39" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/linearLayout62"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout63">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="left"
+                android:id="@+id/GLOBAL_RANK" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/linearLayout63"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/linearLayout64"></LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/linearLayout64"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout65">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Country Rank : "
+
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="left"
+                android:id="@+id/textView40" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/linearLayout65"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout66">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="left"
+                android:id="@+id/COUNTRY_RANk" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/linearLayout66"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout67"></LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/linearLayout67"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout68">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Bounce Rate : "
+
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="left"
+                android:id="@+id/textView41" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/linearLayout68"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout69">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/BOUNCE_RATE" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/linearLayout69"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout70">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:text="Top Countries :"
+                android:id="@+id/textView42" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/linearLayout70"
+            android:layout_centerHorizontal="true">
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/listView_alexa"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
+</LinearLayout>

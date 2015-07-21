@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="100dp">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="70dp">
+
+            <TextView
+                android:id="@+id/one"
+                android:background="#a09f9f"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:layout_height="80dp"
+                android:layout_width="110dp" />
+
+            <TextView
+                android:id="@+id/second"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:background="#b0b0b0"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:layout_height="30dp"
+                android:layout_width="80dp"
+                android:layout_marginTop="1dp" />
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:background="#b0b0b0"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:id="@+id/third"
+                android:layout_column="2"
+                android:layout_marginTop="24dp" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:background="#b0b0b0"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:id="@+id/fourth"
+                android:layout_column="3"
+                android:layout_marginTop="24dp" />
+            <TextView
+                android:id="@+id/fifth"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:background="#b0b0b0"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:layout_height="30dp"
+                android:layout_width="100dp"
+                android:layout_marginTop="1dp" />
+
+        </TableRow>
+
+    </TableLayout>
+</LinearLayout>
