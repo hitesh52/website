@@ -18,8 +18,9 @@
             android:background="#a09f9f"
             android:textColor="#000000"
             android:gravity="center"
-            android:layout_height="80dp"
-            android:layout_width="110dp" />
+            android:textSize="15dp"
+            android:layout_height="match_parent"
+            android:layout_width="130dp" />
 
         <TextView
             android:id="@+id/kw_3_fifth_2"
@@ -30,7 +31,8 @@
             android:gravity="center"
             android:layout_height="30dp"
             android:layout_width="60dp"
-            android:layout_marginTop="1dp" />
+            android:layout_marginTop="23dp"
+            android:layout_marginBottom="20dp" />
 
         <ImageView
             android:layout_width="60dp"
@@ -42,7 +44,8 @@
             android:gravity="center"
             android:id="@+id/DESC3"
             android:layout_column="2"
-            android:layout_marginTop="24dp" />
+            android:layout_marginTop="23dp"
+            android:layout_marginBottom="20dp" />
 
         <ImageView
             android:layout_width="30dp"
@@ -54,7 +57,8 @@
             android:gravity="center"
             android:id="@+id/TITLE3"
             android:layout_column="3"
-            android:layout_marginTop="24dp" />
+            android:layout_marginTop="23dp"
+            android:layout_marginBottom="20dp" />
         <TextView
             android:id="@+id/kw_3_fifth_5"
             android:textSize="20dp"
@@ -64,7 +68,8 @@
             android:gravity="center"
             android:layout_height="30dp"
             android:layout_width="100dp"
-            android:layout_marginTop="1dp" />
+            android:layout_marginTop="23dp"
+            android:layout_marginBottom="20dp" />
 
     </TableRow>
 

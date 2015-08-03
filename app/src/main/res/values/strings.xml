@@ -11,10 +11,12 @@
     <string-array name="nav_drawer_items">
         <item >Home</item>
         <item >Seo</item>
-        <item >Mobile</item>
+        <item >Mobile Rendering</item>
+        <item >Social</item>
         <item >Local</item>
         <item >Speed</item>
         <item >Visitors</item>
+        <item >Technology</item>
     </string-array>
     
     <!-- Nav Drawer List Item Icons -->
@@ -23,9 +25,11 @@
         <item>@drawable/ic_home</item>
         <item>@drawable/seo</item>
         <item>@drawable/mobile</item>
-        <item>@drawable/ic_communities</item>
-        <item>@drawable/seo</item>
         <item>@drawable/mobile</item>
+        <item>@drawable/mobile</item>
+        <item>@drawable/speed</item>
+        <item>@drawable/traffic</item>
+        <item>@drawable/tech</item>
     </array>
     
     <!-- Content Description -->

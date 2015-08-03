@@ -1,20 +1,25 @@
 package com.localexample;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -27,22 +32,36 @@ import com.github.mikephil.charting.utils.Highlight;
 import com.github.mikephil.charting.utils.PercentFormatter;
 import com.localexample.website_analyser.R;
 
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity_seo extends Activity {
 
-
-
+    InputStream is = null;
+    SMSBlockerDataBaseAdapter sm;
     private LinearLayout linearLayout;
     private PieChart mchart;
     private float[] yData ={5,10,15,30};
-
+    Bitmap bitmap = null;
     private  String[] xData={"INTERNAL FOLLOW","INTERNAL DON'T FOLLOW","EXTERNAL FOLLOW","EXTERNAL DONT FOLLOW"};
 float external_link_follow_count=0;
     float external_link_no_follow_count=0;
@@ -55,7 +74,7 @@ float external_link_follow_count=0;
     List<ListItem_kw_two_name> dataList_kw_two_name;
     List<ListItem_kw_two_two_name> dataList_kw_two_two_name;
     ArrayList<ListItem_kw_three_name> dataList_kw_three_name;
-
+    ImageView image;
     Handler handler;
     private ListView ResultList_image;
     private ListView ResultList_kw_two_name;
@@ -130,7 +149,7 @@ float external_link_follow_count=0;
     ArrayList<HashMap<String,String>> arrayList2;
     ArrayList<HashMap<String, String>> arrayList3;
     ArrayList<String> measureList;
-
+    String result1 = null;
     // contacts JSONArray
     JSONArray result = null;
 
@@ -141,7 +160,30 @@ float external_link_follow_count=0;
         setContentView(R.layout.activity_main2);
 
         linearLayout=(LinearLayout)findViewById(R.id.linearLayout34);
+        image=(ImageView)findViewById(R.id.SPELLING);
+        sm=new SMSBlockerDataBaseAdapter(this);
+        try {
+            sm=sm.open();
+                sm.insertEntry("www.vocabmonk.com","seo","a6c69cc269ac893df56b6bf8d8222738",20);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String module=sm.getSinlgeEntry("www.vocabmonk.com","seo");
+        Log.v("MODULE",module);
+        if("seo".equals(module))
+        {
+            Toast.makeText(MainActivity_seo.this, "Congrats: ID AVAILABLE", Toast.LENGTH_LONG).show();
 
+        }
+        else
+        {
+            Toast.makeText(MainActivity_seo.this, "ID NOT VAILABLE", Toast.LENGTH_LONG).show();
+            // Creating service handler class instance
+            //Intent i =new Intent(getApplicationContext(),apitask_seo.class);
+            //startActivity(i);
+
+
+        }
         new GetMeasuredData().execute();
         myResultList = new ArrayList<HashMap<String, String>>();
         myResultList_image = new ArrayList<HashMap<String, String>>();
@@ -184,7 +226,69 @@ float external_link_follow_count=0;
                 return true;
             }
         });
+         LinearLayout lin =(LinearLayout)findViewById(R.id.linearLayout2);
 
+
+
+        lin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog alertDialog = new AlertDialog.Builder(getApplicationContext()).create();
+                alertDialog.setTitle("         WWW RESOLVED"); // your dialog title
+                alertDialog.setMessage("This parameter assesses whether your website re-directs to the same page with or without WWW (World Wide Web). It is better and more convenient for users when it does."); // a message above the buttons
+                alertDialog.setIcon(R.drawable.wwwresolved); // the icon besides the title you have to change it to the icon/image you have.
+                alertDialog.setButton("DECLINE", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) { // here you can add a method  to the button clicked. you can create another button just by copying alertDialog.setButton("okay")
+                    }
+
+                });
+                alertDialog.show();
+
+
+
+            }
+        });
+
+       /* lin.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+
+
+                // Create custom dialog object
+              *//*  final Dialog dialog = new Dialog(MainActivity_seo.this);
+                // Include dialog.xml file
+                dialog.setContentView(R.layout.dialog);
+                // Set dialog title
+                dialog.setTitle("       WWW Resolved");
+
+
+
+
+                // set values for custom dialog components - text, image and button
+                TextView text = (TextView) dialog.findViewById(R.id.textDialog);
+                text.setText("This parameter assesses whether your website re-directs to the same page with or without WWW (World Wide Web). It is better and more convenient for users when it does.");
+               // ImageView image = (ImageView) dialog.findViewById(R.id.imageDialog);
+               // image.setImageResource(R.drawable.seo);
+
+                dialog.show();
+
+                Button declineButton = (Button) dialog.findViewById(R.id.declineButton);
+                // if decline button is clicked, close the custom dialog
+                declineButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Close dialog
+                        dialog.dismiss();
+                    }
+                });*//*
+
+
+            }
+
+        });
+*/
         ResultList_image.setOnTouchListener(new ListView.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -288,6 +392,17 @@ float external_link_follow_count=0;
                 // Handle ListView touch events.
                 v.onTouchEvent(event);
                 return true;
+            }
+        });
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                //DEFINING NEW INTENT TO TRIGGER NEW ACTIVITY - APITASK1
+                //ALSO SENDING THE WEBSITE NAME TO APITASK1 TO MAKE A HTTP GET REQUEST TO IT
+                Intent i = new Intent(getApplicationContext(), MainActivity_spell.class);
+                startActivity(i);
+
             }
         });
     }
@@ -419,18 +534,53 @@ colours.add(ColorTemplate.getHoloBlue());
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            // Creating service handler class instance
-            ServiceHandler sh = new ServiceHandler();
-            // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(url, ServiceHandler.GET);
-            Log.d("Response: ", "> " + jsonStr);
-            if (jsonStr != null) {
+            try {
+
+
+                HttpEntity httpEntity = null;
+                // HttpResponse httpResponse = null;
+                DefaultHttpClient httpClient = new DefaultHttpClient();
+                String username= "wa-v2-01-12345";
+                String password ="123456789";
+                String passwd = sm.getSinlgeEntry2("www.vocabmonk.com","seo");
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+                nameValuePairs.add(new BasicNameValuePair("id",passwd));
+                nameValuePairs.add(new BasicNameValuePair("callback", "WWW.vocabmonk.com"));
+                String paramsString = URLEncodedUtils.format(nameValuePairs, "UTF-8");
+                HttpGet httpGet = new HttpGet(url+"basic-auth/user/passwd"+"?"+paramsString);
+                UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username,password);
+                BasicScheme scheme = new BasicScheme();
+                Header authorizationHeader = scheme.authenticate(credentials, httpGet);
+                httpGet.addHeader(authorizationHeader);
+                HttpResponse httpResponse = httpClient.execute(httpGet);
+                // receive response as inputStream
+                httpEntity = httpResponse.getEntity();
+                is = httpEntity.getContent();
+                sm.close();
+            } catch (Exception e) {
+                Log.d("InputStream", e.getLocalizedMessage());
+            }
+
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                    result1=result1+line;
+                }
+                result1 = sb.toString();
+            } catch (Exception e) {
+                return null;
+            }
+            Log.d("Response: ", "> " + result1);
+            if (result1 != null) {
                 try {
 
 
                     // Getting JSON Array node
                     // looping through All result
-                    JSONObject json = new JSONObject(jsonStr);    // create JSON obj from string
+                    JSONObject json = new JSONObject(result1);    // create JSON obj from string
                     JSONObject json2 = json.getJSONObject("data");
                     JSONObject jsonResult = json2.getJSONObject("response");
                     JSONObject jsonResult1 = jsonResult.getJSONObject("data");
@@ -682,9 +832,20 @@ colours.add(ColorTemplate.getHoloBlue());
 //favicon_url
                     JSONArray favi = jsonResult3.getJSONArray("favicon_url");
                     for (int i = 0; i < favi.length(); i++) {
-                        String value_favi = favi.getString(i);
-                        _favi = _favi + value_favi;
-                        _favi = _favi + ",";
+                        _favi = favi.getString(i);
+                        //_favi = _favi + value_favi;
+                        //_favi = _favi + ",";
+                    }
+                    String imageURL = _favi;
+
+
+                    try {
+                        // Download Image from URL
+                        InputStream input = new java.net.URL(imageURL).openStream();
+                        // Decode Bitmap
+                        bitmap = BitmapFactory.decodeStream(input);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
 //print_css
@@ -861,21 +1022,25 @@ colours.add(ColorTemplate.getHoloBlue());
             TextView open_graph1 = (TextView) findViewById(R.id.OPEN_GRAPH);
             TextView w3c = (TextView) findViewById(R.id.W3C_VALIDATE);
             TextView favi_url = (TextView) findViewById(R.id.FAVICON);
+            ImageView imag_favi=(ImageView)findViewById(R.id.FAVICON_IMAGE);
+            imag_favi.setImageBitmap(bitmap);
 //            TextView title =(TextView)findViewById(R.id.TITLE);
             p_r.setText(page_rank);
             print_css.setText(printcss);
             open_graph1.setText(open_graph);
             w3c.setText(w3_validator);
-            favi_url.setText(_favi);
+
+
+
+            if(_favi!=null) {
+                favi_url.setText("Favicon Found");
+            }
+            else
+                favi_url.setText(" No Favicon Found");
             // Dismiss the progress dialog
             if (pDialog.isShowing())
                 pDialog.dismiss();
 
-            if (www_resolve.equalsIgnoreCase("pass")) {
-                www_resolved.setText("Perfect, WWW is Resolving.");
-            } else {
-                www_resolved.setText(" WWW is not Resolving.");
-            }
             if (rewrite.equalsIgnoreCase("Yes")) {
                 URl_rewrite.setText("Good, the URLs look clean.");
             } else {
@@ -905,9 +1070,11 @@ colours.add(ColorTemplate.getHoloBlue());
                 iframe_.setText("NO");
             } else {
                 iframe_.setText("Yes");
+                //your image url
             }
-
-
+            ScrollView sv;
+            sv=(ScrollView)findViewById(R.id.scrollView_seo);
+            sv.fullScroll(ScrollView.FOCUS_UP);
             mchart = new PieChart(getApplicationContext());
             linearLayout.addView(mchart);
             linearLayout.setBackgroundColor(Color.LTGRAY);
@@ -937,10 +1104,18 @@ colours.add(ColorTemplate.getHoloBlue());
             l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
             l.setXEntrySpace(7);
             l.setXEntrySpace(5);
+
+            if (www_resolve.equalsIgnoreCase("pass")) {
+                www_resolved.setText("Perfect, WWW is Resolving.");
+            } else {
+                www_resolved.setText(" WWW is not Resolving.");
+            }
         }
 
-
     }
+
+
+
     }
 
 

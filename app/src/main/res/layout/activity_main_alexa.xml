@@ -8,11 +8,11 @@
     -->
 <ScrollView
     android:layout_width="match_parent"
+    android:id="@+id/scrollView1"
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:layout_gravity="right">
 
         <LinearLayout
@@ -24,9 +24,10 @@
             android:id="@+id/linearLayout57">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:id="@+id/imageView4" />
+                android:layout_width="51dp"
+                android:layout_height="51dp"
+                android:id="@+id/imageView4"
+                android:src="@drawable/traffic" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -36,7 +37,9 @@
                 android:gravity="left"
 
                 android:text="Traffic"
-                android:id="@+id/textView37" />
+                android:id="@+id/textView37"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -50,7 +53,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/linearLayout58"
             android:layout_centerHorizontal="true"
             android:baselineAligned="false"
@@ -75,12 +78,11 @@
             android:id="@+id/linearLayout60">
 
             <ProgressBar
-                style="?android:attr/progressBarStyleHorizontal"
+                style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="100dp"
                 android:id="@+id/progressBar2"
                 android:minHeight="50dp"
-
                 android:indeterminate="false"
                 android:max="10" />
         </LinearLayout>
@@ -88,7 +90,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/linearLayout60"
             android:layout_centerHorizontal="true"
             android:id="@+id/linearLayout61"></LinearLayout>
@@ -96,7 +98,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/linearLayout61"
             android:layout_centerHorizontal="true"
             android:id="@+id/linearLayout62">
@@ -114,34 +116,80 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/linearLayout62"
             android:layout_centerHorizontal="true"
             android:id="@+id/linearLayout63">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+               android:textSize="20dp"
+                android:gravity="right"
+                android:id="@+id/GLOBALRANK"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="40dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
                 android:textSize="20dp"
-                android:textStyle="normal"
+                android:id="@+id/POWER"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:textSize="15dp"
+                android:id="@+id/FIRSTBRACKET"
+                android:layout_marginTop="20dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="14dp"
+                android:id="@+id/BRACKETIMAGE"
+                android:textSize="15dp"
+                android:layout_marginTop="25dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:textSize="20dp"
+                android:id="@+id/CHANGE"
+                android:layout_marginTop="24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:textSize="15dp"
                 android:gravity="left"
-                android:id="@+id/GLOBAL_RANK" />
+                android:id="@+id/SECONDBRACKET"
+                android:layout_marginTop="20dp" />
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="60dp"
             android:layout_below="@+id/linearLayout63"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:id="@+id/linearLayout64"></LinearLayout>
+            android:id="@+id/linearLayout64">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:id="@+id/QUOTE"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="-30dp" />
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/linearLayout64"
             android:layout_centerHorizontal="true"
             android:id="@+id/linearLayout65">
@@ -150,7 +198,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Country Rank : "
-
                 android:textSize="20dp"
                 android:textStyle="normal"
                 android:gravity="left"
@@ -160,36 +207,57 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:layout_below="@+id/linearLayout65"
             android:layout_centerHorizontal="true"
             android:id="@+id/linearLayout66">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
 
                 android:textSize="20dp"
                 android:textStyle="normal"
+                android:gravity="center"
+                android:id="@+id/COUNTRY_RANk"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:textSize="20dp"
+                android:textStyle="normal"
                 android:gravity="left"
-                android:id="@+id/COUNTRY_RANk" />
+                android:id="@+id/COUNTRYPOWER"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:id="@+id/COUNTRYTEXT6"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="left"
+                android:id="@+id/COUNTRYNAME"
+                android:layout_marginTop="20dp" />
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_below="@+id/linearLayout66"
+            android:layout_height="60dp"
             android:layout_centerHorizontal="true"
-            android:id="@+id/linearLayout67"></LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/linearLayout67"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/linearLayout68">
+            android:id="@+id/linearLayout68"
+            android:layout_below="@+id/linearLayout66">
 
             <TextView
                 android:layout_width="match_parent"
@@ -205,7 +273,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_below="@+id/linearLayout68"
             android:layout_centerHorizontal="true"
             android:id="@+id/linearLayout69">
@@ -213,13 +281,15 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:gravity="center"
                 android:id="@+id/BOUNCE_RATE" />
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_below="@+id/linearLayout69"
             android:layout_centerHorizontal="true"
             android:id="@+id/linearLayout70">

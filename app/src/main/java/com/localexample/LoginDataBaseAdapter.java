@@ -20,11 +20,11 @@ public class LoginDataBaseAdapter
 		// Context of the application using the database.
 		private final Context context;
 		// Database open/upgrade helper
-		private DataBaseHelper dbHelper;
+		private DataBaseHelper2 dbHelper;
 		public  LoginDataBaseAdapter(Context _context) 
 		{
 			context = _context;
-			dbHelper = new DataBaseHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
+			dbHelper = new DataBaseHelper2(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
 		public  LoginDataBaseAdapter open() throws SQLException 
 		{

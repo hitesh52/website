@@ -15,6 +15,7 @@ public class HomeActivity extends Activity
 {
 	Button btnSignIn,btnSignUp;
 	LoginDataBaseAdapter loginDataBaseAdapter;
+	SessionManager session;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -47,7 +48,7 @@ public class HomeActivity extends Activity
 			final Dialog dialog = new Dialog(HomeActivity.this);
 			dialog.setContentView(R.layout.login);
 		    dialog.setTitle("Login");
-	
+		   session = new SessionManager(getApplicationContext());
 		    // get the Refferences of views
 		    final  EditText editTextUserName=(EditText)dialog.findViewById(R.id.editTextUserNameToLogin);
 		    final  EditText editTextPassword=(EditText)dialog.findViewById(R.id.editTextPasswordToLogin);
@@ -70,6 +71,7 @@ public class HomeActivity extends Activity
 					{
 						Toast.makeText(HomeActivity.this, "Congrats: Login Successful", Toast.LENGTH_LONG).show();
 						dialog.dismiss();
+						session.createLoginSession(userName, password);
 						Intent i =new Intent(getApplicationContext(),website_name.class);
 						startActivity(i);
 

@@ -2,34 +2,40 @@ package com.localexample;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-
-
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.localexample.website_analyser.R;
 
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,17 +43,19 @@ import java.util.List;
 public class MainActivity_mobile extends Activity {
 
     private ProgressDialog pDialog;
-WebView mWebview;
+     WebView web;
     Handler handler;
+    ProgressBar progressBar;
     private ListView resultList_mobile;
     ArrayList<HashMap<String, String>> myResultList_mobile;
-
+    private ProgressDialog progressDialog;
     // URL to get contacts JSON
     private static String url = "https://apiv2dev.rankwatch.com/wa/wadetails/json/";
     // JSON Node names
     String ip_tech ,city_tech,region_tech,country_tech,hosting_provider;
 
-
+    InputStream is = null;
+    String result1 = null;
     String b_rate="22";
     private static String DATA_URL="cf" ;
     private static int VIEW_PORT=0;
@@ -56,7 +64,7 @@ WebView mWebview;
     private static int MOBILE_CSS =0;
     private static final String IP = "zvs";
     private static String MOBILE_RENDERING1 = "rff";
-
+    SMSBlockerDataBaseAdapter mobile;
 
     ArrayList<String> measureList;
 
@@ -69,6 +77,34 @@ WebView mWebview;
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main_mobile);
+
+
+
+
+        mobile=new SMSBlockerDataBaseAdapter(this);
+        try {
+            mobile=mobile.open();
+            mobile.insertEntry("www.vocabmonk.com", "mobile", "e89bb4bdb971083322c3e663929facb6", 898);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String module=mobile.getSinlgeEntry("www.vocabmonk.com","mobile");
+        Log.v("MODULE", module);
+
+        if("mobile".equals(module))
+        {
+            Toast.makeText(MainActivity_mobile.this, "Congrats: ID AVAILABLE", Toast.LENGTH_LONG).show();
+
+        }
+        else
+        {
+            Toast.makeText(MainActivity_mobile.this, "ID NOT VAILABLE", Toast.LENGTH_LONG).show();
+            //Creating service handler class instance
+              Intent i =new Intent(getApplicationContext(),apitask_mobile.class);
+             startActivity(i);
+
+
+        }
         new GetMeasuredData_mobile().execute();
 
 
@@ -95,13 +131,51 @@ WebView mWebview;
         @Override
         protected Void doInBackground(Void... arg0) {
             // Creating service handler class instance
-            ServiceHandler_mobile sh = new ServiceHandler_mobile();
-            // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(url, ServiceHandler_alexa.GET);
-            Log.d("Response: ", "> " + jsonStr);
-            if (jsonStr != null) {
+            try {
+
+
+                HttpEntity httpEntity = null;
+                // HttpResponse httpResponse = null;
+                DefaultHttpClient httpClient = new DefaultHttpClient();
+                String username= "wa-v2-01-12345";
+                String password ="123456789";
+
+                String passwd =mobile.getSinlgeEntry2("www.vocabmonk.com","mobile");
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+                nameValuePairs.add(new BasicNameValuePair("id",passwd));
+                nameValuePairs.add(new BasicNameValuePair("callback", "WWW.vocabmonk.com"));
+                String paramsString = URLEncodedUtils.format(nameValuePairs, "UTF-8");
+                HttpGet httpGet = new HttpGet(url+"basic-auth/user/passwd"+"?"+paramsString);
+                UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username,password);
+                BasicScheme scheme = new BasicScheme();
+                Header authorizationHeader = scheme.authenticate(credentials, httpGet);
+                httpGet.addHeader(authorizationHeader);
+                HttpResponse httpResponse = httpClient.execute(httpGet);
+                // receive response as inputStream
+                httpEntity = httpResponse.getEntity();
+                is = httpEntity.getContent();
+                mobile.close();
+            } catch (Exception e) {
+                Log.d("InputStream", e.getLocalizedMessage());
+            }
+
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                    result1=result1+line;
+                }
+                result1 = sb.toString();
+            } catch (Exception e) {
+                return null;
+            }
+
+            Log.d("Response: ", "> " + result1);
+            if (result1 != null) {
                 try {
-                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    JSONObject jsonObj = new JSONObject(result1);
                     // Getting JSON Array node
                     JSONObject jsonObj1= jsonObj.getJSONObject("data");
                     JSONObject jsonObj2= jsonObj1.getJSONObject("response");
@@ -159,6 +233,88 @@ WebView mWebview;
 
                 mobile_render.setChecked(!mobile_render.isChecked());
             }
+
+            web = (WebView) findViewById(R.id.MOBILE);
+            progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+
+            web.setWebViewClient(new myWebClient());
+            web.getSettings().setJavaScriptEnabled(true);
+            web.loadUrl(DATA_URL);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         /*   mWebview= (WebView) findViewById(R.id.MOBILE);
+
+            //final Activity activity = this;
+
+            mWebview.getSettings().setJavaScriptEnabled(true);
+            pbr = (ProgressBar)findViewById(R.id.progressBar1);
+
+
+            mWebview.loadUrl(DATA_URL);
+
+           mWebview.setWebViewClient(new WebViewClient() {
+                public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                    view.loadUrl(url);
+                    return true;
+                }
+
+                @Override
+                public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                    super.onPageStarted(view, url, favicon);
+                    // Show progressbar
+                   pbr.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                    // Show error
+                    // Stop spinner or progressbar
+                    pbr.setVisibility(View.GONE);
+
+                }
+
+
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    super.onPageFinished(view, url);
+                    // Stop spinner or progressBar
+                    pbr.setVisibility(View.GONE);
+
+                }
+
+
+            });*/
+
+
+/*
             mWebview=(WebView)findViewById(R.id.MOBILE_VIEW);
             WebView desktopview=(WebView)findViewById(R.id.MAC_VIEW);
 
@@ -169,8 +325,8 @@ WebView mWebview;
                 }
             });
 
-            mWebview .loadUrl(DATA_URL);
-
+            mWebview .loadUrl(DATA_URL);*/
+            WebView desktopview=(WebView)findViewById(R.id.MAC_VIEW);
             desktopview.getSettings().setJavaScriptEnabled(true);
             desktopview.setWebViewClient(new WebViewClient() {
                 public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
@@ -190,6 +346,29 @@ WebView mWebview;
         }
 
     }
+    private class myWebClient extends WebViewClient {
+        @Override
+        public void onPageStarted(WebView view, String url1, Bitmap favicon) {
+            // TODO Auto-generated method stub
+            super.onPageStarted(view, url1, favicon);
+        }
 
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url1) {
+            // TODO Auto-generated method stub
+            progressBar.setVisibility(View.VISIBLE);
+            view.loadUrl(url1);
+            return true;
+
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url1) {
+            // TODO Auto-generated method stub
+            super.onPageFinished(view, url1);
+
+            progressBar.setVisibility(View.GONE);
+        }
+    }
 
 }

@@ -1,15 +1,13 @@
 package com.localexample;
 
 
-
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -19,18 +17,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.localexample.website_analyser.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends Activity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
-
+	SQLiteDatabase db;
 	// nav drawer title
+	SessionManager session;
 	private CharSequence mDrawerTitle;
-
-	// used to store app title
+    String USERNAME="ss";
+	String PASSWORD="ffefr";
 	private CharSequence mTitle;
 
 	// slide menu items
@@ -43,13 +46,17 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Intent i =getIntent();
-		String website_name=i.getStringExtra("website");
-		Log.v("WEBSITE",website_name);
 		setContentView(R.layout.activity_main);
-
 		mTitle = mDrawerTitle = getTitle();
-
+		Intent intent = getIntent();
+		session = new SessionManager(getApplicationContext());
+		session.checkLogin();
+		HashMap<String, String> user = session.getUserDetails();
+		USERNAME = user.get(SessionManager.KEY_USERNAME);
+		PASSWORD = user.get(SessionManager.KEY_PASSWORD);
+		Log.v("USERNMA",USERNAME);
+		Log.v("PASSWORD",PASSWORD);
+		String website_name = intent.getStringExtra("website");
 		// load slide menu items
 		navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
 
@@ -74,7 +81,10 @@ public class MainActivity extends Activity {
 		// Pages
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
 		// What's hot, We  will add a counter here
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1), true, "50+"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1) ));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(7, -1) ));
+
 		
 
 		// Recycle the typed array
@@ -89,7 +99,7 @@ public class MainActivity extends Activity {
 
 		// enabling action bar app icon and behaving it as toggle button
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(false);
+		getActionBar().setHomeButtonEnabled(true);
 
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 				R.drawable.ic_drawer, //nav menu toggle icon
@@ -145,7 +155,19 @@ public class MainActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.action_settings:
 			return true;
-		default:
+			case  R.id.logout:
+			{
+				Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
+				session.checkLogin();
+				HashMap<String, String> user = session.getUserDetails();
+				USERNAME = user.get(SessionManager.KEY_USERNAME);
+				PASSWORD = user.get(SessionManager.KEY_PASSWORD);
+				Log.v("USERNMA",USERNAME);
+				Log.v("PASSWORD",PASSWORD);
+				session.logoutUser();
+			}
+
+			default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
@@ -168,24 +190,41 @@ public class MainActivity extends Activity {
 		// update the main content by replacing fragments
 		Fragment fragment = null;
 		switch (position) {
-		case 0:
+			case 0:
 
-			break;
-		case 1:
 
-			break;
-		case 2:
 
-			break;
-		case 3:
-
-			break;
-		case 4:
-
-			break;
-		case 5:
-
-			break;
+				break;
+			case 1:
+				Intent in = new Intent(getApplicationContext(),MainActivity_seo.class);
+				startActivity(in);
+				//Intent in2 = new Intent(getApplicationContext(),MainActivity_technology.class);
+				//startActivity(in2);
+				break;
+			case 2:
+				Intent in3 = new Intent(getApplicationContext(),MainActivity_mobile.class);
+				startActivity(in3);
+				break;
+			case 3:
+				//Intent in4 = new Intent(getApplicationContext(),MainActivity_speed.class);
+				//startActivity(in4);
+				break;
+			case 4:
+				Intent in4 = new Intent(getApplicationContext(),MainActivity_alexa.class);
+				startActivity(in4);
+				break;
+			case 5:
+				Intent in5 = new Intent(getApplicationContext(),MainActivity_technology.class);
+				startActivity(in5);
+				break;
+			case 6:
+				//Intent in5 = new Intent(getApplicationContext(),MainActivity_technology.class);
+				//startActivity(in5);
+				break;
+			case 7:
+				//Intent in5 = new Intent(getApplicationContext(),MainActivity_technology.class);
+				//startActivity(in5);
+				break;
 
 		default:
 			break;

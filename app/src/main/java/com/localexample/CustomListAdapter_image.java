@@ -2,6 +2,7 @@ package com.localexample;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,13 +37,17 @@ public class CustomListAdapter_image extends ArrayAdapter<ListItem_image> {
             holder = new ListItemHolder();
             view = inflater.inflate(ResId, parent, false);
             holder.imag = (TextView) view.findViewById(R.id.IMAGE);
+            holder.img=(ImageView)view.findViewById(R.id.imageView9);
             view.setTag(holder);
         } else {
             holder = (ListItemHolder) view.getTag();
         }
+
         holder = (ListItemHolder) view.getTag();
         ListItem_image listing = (ListItem_image) this.listItemList.get(position);
         holder.imag.setText(listing.getImage());
+        String imgid=listing.getImage();
+        Log.v("IMAGE",imgid);
 
         return view;
     }
@@ -50,6 +55,8 @@ public class CustomListAdapter_image extends ArrayAdapter<ListItem_image> {
 
     private static class ListItemHolder{
         TextView imag;
+        ImageView img;
+
 
     }
 }

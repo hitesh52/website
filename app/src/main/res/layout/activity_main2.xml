@@ -5,6 +5,7 @@
     tools:context=".MainActivity">
 <ScrollView
     android:layout_width="match_parent"
+    android:id="@+id/scrollView_seo"
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -48,7 +49,8 @@
             android:layout_below="@+id/linearLayout"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/linearLayout2">
+            android:id="@+id/linearLayout2"
+            android:clickable="true">
 
             <TextView
                 android:layout_width="110dp"
@@ -673,6 +675,13 @@
                 android:gravity="center"
                 android:text="Favicon" />
 
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:id="@+id/FAVICON_IMAGE"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -680,6 +689,7 @@
                 android:textStyle="normal"
                 android:gravity="center"
                 android:id="@+id/FAVICON" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -916,7 +926,46 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:textSize="15dp"
+                    android:textStyle="normal"
+                    android:gravity="center"
+                    android:text="Keyword(Two Word)"
+                    android:id="@+id/textView124" />
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:text="Frequency"
+                    android:gravity="center"
+                    android:id="@+id/textView125" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Desc"
+                    android:id="@+id/textView327" />
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:text="Title"
+                    android:gravity="center"
+                    android:id="@+id/textView249" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Content"
+                    android:gravity="center"
+                    android:id="@+id/textView371" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -940,7 +989,46 @@
             android:layout_height="60dp"
             android:layout_below="@+id/linearLayout53"
             android:layout_centerHorizontal="true"
-            android:id="@+id/linearLayout54"></LinearLayout>
+            android:id="@+id/linearLayout54"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:textSize="15dp"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:text="Keyword(Three Word)"
+                android:id="@+id/textViewd24" />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:text="Frequency"
+                android:gravity="center"
+                android:id="@+id/textView1225" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Desc"
+                android:id="@+id/textView3627" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:text="Title"
+                android:gravity="center"
+                android:id="@+id/textView7249" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Content"
+                android:gravity="center"
+                android:id="@+id/textView3871" />
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -958,20 +1046,40 @@
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="300dp"
-            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
             android:layout_below="@+id/linearLayout55"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="90dp"
+            android:weightSum="1">
 
-            <ImageView
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="Click To See..."
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:id="@+id/textView64" />
+
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/SPELLING"
-                android:clickable="true" />
-        </LinearLayout>
+                android:layout_weight="0.99"
+                android:clickable="false">
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:id="@+id/SPELLING"
+                    android:src="@drawable/spelling"
+                    android:clickable="true" />
+            </LinearLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 </ScrollView>
+
 </RelativeLayout>

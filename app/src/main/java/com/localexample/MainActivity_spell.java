@@ -6,26 +6,41 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.localexample.website_analyser.R;
 
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity_spell extends Activity {
-
+    InputStream is = null;
+    String result = null;
     private ProgressDialog pDialog;
     List<ListItem_spell> dataList_spell;
     Handler handler;
     private ListView resultList_spell;
+
     ArrayList<HashMap<String, String>> myResultList_spell;
     CustomListAdapter_spell adapter_spell;
     // URL to get contacts JSON
@@ -35,9 +50,9 @@ public class MainActivity_spell extends Activity {
     private static final String SUBSTITUTIONS = "substitutions";
     private static final String INPUT_TEXT = "inputText";
     ArrayList<String> measureList;
-
+    SMSBlockerDataBaseAdapter spell;
     // contacts JSONArray
-    JSONArray result = null;
+
 
 
     @Override
@@ -45,8 +60,30 @@ public class MainActivity_spell extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_spell);
         myResultList_spell = new ArrayList<HashMap<String, String>>();
+        spell=new SMSBlockerDataBaseAdapter(this);
+        try {
+            spell=spell.open();
+            spell.insertEntry("www.vocabmonk.com","spell","5041f147fb3a13b51861ccd611ca7214",898);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String module=spell.getSinlgeEntry("www.vocabmonk.com","spell");
+        Log.v("MODULE",module);
+
+        if("spell".equals(module))
+        {
+            Toast.makeText(MainActivity_spell.this, "Congrats: ID AVAILABLE", Toast.LENGTH_LONG).show();
+
+        }
+        else
+        {
+            Toast.makeText(MainActivity_spell.this, "ID NOT VAILABLE", Toast.LENGTH_LONG).show();
+            // Creating service handler class instance
+          //  Intent i =new Intent(getApplicationContext(),apitask1.class);
+            //startActivity(i);
 
 
+        }
         new GetMeasuredData_spell().execute();
         dataList_spell = new ArrayList<>();
         resultList_spell= (ListView) findViewById(R.id.listView_spell);
@@ -82,13 +119,53 @@ public class MainActivity_spell extends Activity {
         @Override
         protected Void doInBackground(Void... arg0) {
             // Creating service handler class instance
-            ServiceHandler_spell sh = new ServiceHandler_spell();
+
             // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(url, ServiceHandler_spell.GET);
-            Log.d("Response: ", "> " + jsonStr);
-            if (jsonStr != null) {
+            try {
+
+                String result = "";
+                HttpEntity httpEntity = null;
+                // HttpResponse httpResponse = null;
+                DefaultHttpClient httpClient = new DefaultHttpClient();
+                String username= "wa-v2-01-12345";
+                String password ="123456789";
+
+                 String passwd = spell.getSinlgeEntry2("www.vocabmonk.com","spell");
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+                nameValuePairs.add(new BasicNameValuePair("id",passwd));
+                nameValuePairs.add(new BasicNameValuePair("callback", "WWW.vocabmonk.com"));
+                String paramsString = URLEncodedUtils.format(nameValuePairs, "UTF-8");
+                HttpGet httpGet = new HttpGet(url+"basic-auth/user/passwd"+"?"+paramsString);
+                UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username,password);
+                BasicScheme scheme = new BasicScheme();
+                Header authorizationHeader = scheme.authenticate(credentials, httpGet);
+                httpGet.addHeader(authorizationHeader);
+                HttpResponse httpResponse = httpClient.execute(httpGet);
+                // receive response as inputStream
+                httpEntity = httpResponse.getEntity();
+                is = httpEntity.getContent();
+                spell.close();
+            } catch (Exception e) {
+                Log.d("InputStream", e.getLocalizedMessage());
+            }
+
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                    result=result+line;
+                }
+                result = sb.toString();
+            } catch (Exception e) {
+                return null;
+            }
+
+            Log.d("Response: ", "> " + result);
+            if (result != null) {
                 try {
-                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    JSONObject jsonObj = new JSONObject(result);
                     // Getting JSON Array node
                     JSONObject jsonObj1= jsonObj.getJSONObject("data");
                     JSONObject jsonObj2= jsonObj1.getJSONObject("response");
@@ -188,12 +265,6 @@ public class MainActivity_spell extends Activity {
                                    myResultList_spell.add(measuredResult5);
 
                                }
-
-
-
-
-
-
 
                         }
                     }

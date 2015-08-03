@@ -2,39 +2,32 @@
 <items version="2" >
 
     <item
-        jar="E:\Website_Analyser\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
+        jar="C:\Users\Guddu\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp\okhttp\2.4.0\40340c0748190fe897baf7bffbc1b282734294e5\okhttp-2.4.0.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
-        <dex dex="E:\Website_Analyser\app\build\intermediates\pre-dexed\debug\classes-86bb039e4967213556e12f53b325f6e3ee4456a2.jar" />
-    </item>
-    <item
-        jar="E:\Website_Analyser\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
-        <dex dex="E:\Website_Analyser\app\build\intermediates\pre-dexed\debug\classes-fc80979bd9b1a520c72bbe77520ae8d226710468.jar" />
+        sha1="40340c0748190fe897baf7bffbc1b282734294e5">
+        <dex dex="E:\Website_Analyser\sample\build\intermediates\pre-dexed\debug\okhttp-2.4.0-7097bafc53ed356a8e2c20fb0e3b85f1fab10874.jar" />
     </item>
     <item
         jar="C:\Users\Guddu\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
-        <dex dex="E:\Website_Analyser\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-5c28c1ffd6885932f2d0ab39c0612614944c0475.jar" />
+        <dex dex="E:\Website_Analyser\sample\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-5c28c1ffd6885932f2d0ab39c0612614944c0475.jar" />
     </item>
     <item
-        jar="E:\Website_Analyser\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jar="E:\Website_Analyser\app\libs\volley.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
-        <dex dex="E:\Website_Analyser\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-10c92cab35823458341b23736a5ae91e0f5f7123.jar" />
+        sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
+        <dex dex="E:\Website_Analyser\app\build\intermediates\pre-dexed\debug\volley-56233e2b202e2dcd38de32997ddcca41ef0c3b28.jar" />
     </item>
     <item
-        jar="C:\Users\Guddu\.gradle\caches\modules-2\files-2.1\com.github.PhilJay\MPAndroidChart\v2.0.9\6df6035161f0263100c3a70626bccbfd0bb545b7\MPAndroidChart-v2.0.9.jar"
+        jar="E:\Website_Analyser\sample\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="6df6035161f0263100c3a70626bccbfd0bb545b7">
-        <dex dex="E:\Website_Analyser\app\build\intermediates\pre-dexed\debug\MPAndroidChart-v2.0.9-6d945647dd4ac242e4d1c74862511b33ecca32a1.jar" />
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="E:\Website_Analyser\sample\build\intermediates\pre-dexed\debug\classes-5a04ebc0fe13fb91ac0d6a5224fc46ab0977296c.jar" />
     </item>
     <item
         jar="C:\Users\Guddu\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.2.4\a60a5e993c98c864010053cb901b7eab25306568\gson-2.2.4.jar"
@@ -44,11 +37,53 @@
         <dex dex="E:\Website_Analyser\app\build\intermediates\pre-dexed\debug\gson-2.2.4-8807de3fdf29f5d1377fe405e58ed30b59164056.jar" />
     </item>
     <item
-        jar="E:\Website_Analyser\app\libs\volley.jar"
+        jar="C:\Users\Guddu\.gradle\caches\modules-2\files-2.1\com.github.PhilJay\MPAndroidChart\v2.0.9\6df6035161f0263100c3a70626bccbfd0bb545b7\MPAndroidChart-v2.0.9.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
-        <dex dex="E:\Website_Analyser\app\build\intermediates\pre-dexed\debug\volley-56233e2b202e2dcd38de32997ddcca41ef0c3b28.jar" />
+        sha1="6df6035161f0263100c3a70626bccbfd0bb545b7">
+        <dex dex="E:\Website_Analyser\app\build\intermediates\pre-dexed\debug\MPAndroidChart-v2.0.9-6d945647dd4ac242e4d1c74862511b33ecca32a1.jar" />
+    </item>
+    <item
+        jar="E:\Website_Analyser\sample\build\intermediates\exploded-aar\Website_Analyser\library\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="0d3c0f9f0008406f660b075f8353000809c37d62">
+        <dex dex="E:\Website_Analyser\sample\build\intermediates\pre-dexed\debug\classes-4a2e0800626dc76b0a7968c9920a4b91084bf4ac.jar" />
+    </item>
+    <item
+        jar="E:\Website_Analyser\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="E:\Website_Analyser\app\build\intermediates\pre-dexed\debug\classes-86bb039e4967213556e12f53b325f6e3ee4456a2.jar" />
+    </item>
+    <item
+        jar="E:\Website_Analyser\sample\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="E:\Website_Analyser\sample\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-a494721d16e4ef3598396834ac563f011c54a139.jar" />
+    </item>
+    <item
+        jar="C:\Users\Guddu\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.4.0\5b72bf48563ea8410e650de14aa33ff69a3e8c35\okio-1.4.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="5b72bf48563ea8410e650de14aa33ff69a3e8c35">
+        <dex dex="E:\Website_Analyser\sample\build\intermediates\pre-dexed\debug\okio-1.4.0-07a2a0126afd8d7888a7d9551d749e7187da9ceb.jar" />
+    </item>
+    <item
+        jar="E:\Website_Analyser\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="E:\Website_Analyser\app\build\intermediates\pre-dexed\debug\classes-fc80979bd9b1a520c72bbe77520ae8d226710468.jar" />
+    </item>
+    <item
+        jar="E:\Website_Analyser\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="E:\Website_Analyser\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-10c92cab35823458341b23736a5ae91e0f5f7123.jar" />
     </item>
 
 </items>
