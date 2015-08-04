@@ -55,23 +55,29 @@
                 android:id="@+id/imageView6"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ip" />
-            <ProgressBar
-                android:layout_height="100dp"
-                android:layout_width="50dp"
-                android:layout_gravity="center"
-                android:id="@+id/progressBar1"
-                android:layout_marginLeft="-200dp"
-                android:background="#ffff74e5" />*
 
+            <FrameLayout
+                android:layout_width="125dp"
+                android:layout_height="218dp"
+                android:layout_marginLeft="-245dp"
+                android:layout_marginTop="40dp">
 
+                <WebView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/MOBILE"
+                    android:layout_gravity="center" />
 
-            <WebView
-                android:id="@+id/MOBILE"
-                android:layout_width="140dp"
-                android:layout_height="230dp"
-                android:layout_marginLeft="-110dp"
-                android:layout_marginTop="40dp" />
+                <ProgressBar
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/PROGRESSMOBILE"
+                    android:layout_gravity="center"
+                    android:indeterminate="false" />
+            </FrameLayout>
 
+            *
 
 
         </LinearLayout>
@@ -99,12 +105,27 @@
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/mac" />
 
-            <WebView
+            <FrameLayout
                 android:layout_width="218dp"
                 android:layout_height="138dp"
-                android:id="@+id/MAC_VIEW"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="-292dp" />
+                android:layout_marginLeft="-292dp">
+
+                <WebView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/MAC"
+                    android:layout_gravity="center" />
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/PROGRESSMAC"
+                    android:layout_gravity="center"
+                    android:indeterminate="false" />
+            </FrameLayout>
+
         </LinearLayout>
 
         <LinearLayout

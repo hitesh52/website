@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp">
-
+        android:layout_height="200dp">
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:id="@+id/linearLayout86">
@@ -19,8 +19,8 @@
                 android:layout_height="match_parent"
                 android:text="Recommendation"
                 android:textSize="20dp"
-                android:background="@color/black"
-                android:textColor="@color/sunflower"
+                android:background="@color/greensea"
+                android:textColor="@color/black"
                 android:textStyle="normal"
                 android:gravity="center"
                 android:id="@+id/textView58" />
@@ -29,7 +29,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_below="@+id/linearLayout86"
             android:layout_centerHorizontal="true"
             android:id="@+id/linearLayout87">
@@ -46,7 +46,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
+            android:background="@color/greensea"
             android:layout_below="@+id/linearLayout87"
             android:layout_centerHorizontal="true"
             android:id="@+id/linearLayout88">
@@ -56,8 +57,8 @@
                 android:layout_height="match_parent"
                 android:text="Grade"
                 android:textSize="20dp"
-                android:background="@color/black"
-                android:textColor="@color/sunflower"
+
+                android:textColor="@color/black"
                 android:textStyle="normal"
                 android:gravity="center"
                 android:id="@+id/textView61" />
@@ -68,8 +69,8 @@
                 android:text="Type"
                 android:textSize="20dp"
                 android:textStyle="normal"
-                android:background="@color/black"
-                android:textColor="@color/sunflower"
+
+                android:textColor="@color/black"
                 android:gravity="center"
                 android:id="@+id/textView62" />
 
@@ -78,8 +79,8 @@
                 android:layout_height="match_parent"
                 android:textSize="20dp"
                 android:textStyle="normal"
-                android:background="@color/black"
-                android:textColor="@color/sunflower"
+
+                android:textColor="@color/black"
                 android:gravity="center"
                 android:text="Priority"
                 android:id="@+id/textView63" />
@@ -90,14 +91,17 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_below="@+id/linearLayout88"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout76">
 
             <ProgressBar
-                style="?android:attr/progressBarStyleHorizontal"
+                style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="130dp"
                 android:layout_height="match_parent"
                 android:id="@+id/GRADE"
-                android:indeterminate="false" />
+                android:indeterminate="false"
+                android:minHeight="50dp"
+                android:max="10" />
 
             <TextView
                 android:layout_width="130dp"
@@ -115,11 +119,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/PRIORITY" />
         </LinearLayout>
+
     </RelativeLayout>
 
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/DATA"
-        android:visibility="invisible" />
 </LinearLayout>

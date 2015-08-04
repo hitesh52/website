@@ -143,6 +143,15 @@
                 <category android:name="android.intent.category.default" />
             </intent-filter>
         </activity>
+        <activity
+            android:name ="com.localexample.apitask_speed"
+            android:label= "Website_Analyser">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />>
+                <category android:name="android.intent.category.default" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 

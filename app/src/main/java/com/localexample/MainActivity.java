@@ -210,20 +210,20 @@ public class MainActivity extends Activity {
 				//startActivity(in4);
 				break;
 			case 4:
-				Intent in4 = new Intent(getApplicationContext(),MainActivity_alexa.class);
-				startActivity(in4);
+
 				break;
 			case 5:
-				Intent in5 = new Intent(getApplicationContext(),MainActivity_technology.class);
+				Intent in5 = new Intent(getApplicationContext(),MainActivity_speed.class);
 				startActivity(in5);
+
 				break;
 			case 6:
-				//Intent in5 = new Intent(getApplicationContext(),MainActivity_technology.class);
-				//startActivity(in5);
+				Intent in6 = new Intent(getApplicationContext(),MainActivity_alexa.class);
+				startActivity(in6);
 				break;
 			case 7:
-				//Intent in5 = new Intent(getApplicationContext(),MainActivity_technology.class);
-				//startActivity(in5);
+				Intent in7 = new Intent(getApplicationContext(),MainActivity_technology.class);
+				startActivity(in7);
 				break;
 
 		default:

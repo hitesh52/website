@@ -1,21 +1,21 @@
 package com.localexample;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -28,20 +28,33 @@ import com.github.mikephil.charting.utils.Highlight;
 import com.github.mikephil.charting.utils.PercentFormatter;
 import com.localexample.website_analyser.R;
 
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import static java.lang.Math.round;
-
 public class MainActivity_speed extends Activity {
-
+    InputStream is = null;
+    String result1 = null;
     private ProgressDialog pDialog;
     List<ListItem_speed> dataList_speed;
     List<ListItem_speed_second> dataList_speed_second;
@@ -51,7 +64,7 @@ public class MainActivity_speed extends Activity {
     private LinearLayout linearLayout2;
     private PieChart mchart;
     private float[] yData = {5, 10, 15, 30,20,60,20,1};
-
+    SMSBlockerDataBaseAdapter speed;
     private String[] xData = {"DOC", "CSS", "FONT", "JS","CSSIMAGE","IMAGE","FAVICON","IFRAME"};
     private PieChart mchart2;
     private float[] yData2 = {5, 10, 15, 30,20,60,20,1};
@@ -61,7 +74,7 @@ public class MainActivity_speed extends Activity {
     double size_total = 0.0;
     int req_total_c = 0;
     double size_total_c = 0.0;
-   String fin="";
+    String fin="";
     private ListView resultList_speed;
     private ListView resultList_speed_second;
     private ListView resultList_speed_tips;
@@ -74,6 +87,8 @@ public class MainActivity_speed extends Activity {
     // URL to get contacts JSON
     private static String url = "https://apiv2dev.rankwatch.com/wa/wadetails/json/";
     // JSON Node names
+    float cached_page_size,total_page_size,page_load_time;
+    Long total_requests,y_score;
     private static final String REQUEST = "w";
     private static final String SIZE = "s";
     private static final String REQUEST2 = "hryhrt";
@@ -95,10 +110,37 @@ public class MainActivity_speed extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_speed);
         // Listview on item click listener
-
         myResultList_speed = new ArrayList<HashMap<String, String>>();
         myResultList_speed_second = new ArrayList<HashMap<String, String>>();
         myResultList_speed_tips = new ArrayList<HashMap<String, String>>();
+
+
+
+
+        speed=new SMSBlockerDataBaseAdapter(this);
+        try {
+            speed=speed.open();
+            speed.insertEntry("www.vocabmonk.com","speed","86cdd7a507a52c626866c209d13adf53",898);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String module=speed.getSinlgeEntry("www.vocabmonk.com","speed");
+        Log.v("MODULE",module);
+
+        if("speed".equals(module))
+        {
+            Toast.makeText(MainActivity_speed.this, "Congrats: ID AVAILABLE", Toast.LENGTH_LONG).show();
+
+        }
+        else
+        {
+            Toast.makeText(MainActivity_speed.this, "ID NOT VAILABLE", Toast.LENGTH_LONG).show();
+            // Creating service handler class instance
+             Intent i =new Intent(getApplicationContext(),apitask_speed.class);
+             startActivity(i);
+
+
+        }
         new GetMeasuredData_speed().execute();
         dataList_speed = new ArrayList<>();
         dataList_speed_second = new ArrayList<>();
@@ -183,15 +225,15 @@ public class MainActivity_speed extends Activity {
                 // getting values from selected ListItem
                 String name = ((TextView) view.findViewById(R.id.RECOMMENDATION))
                         .getText().toString();
-                String cost = ((TextView) view.findViewById(R.id.DATA))
-                        .getText().toString();
+              // String cost = ((TextView) view.findViewById(R.id.DATA))
+                //       .getText().toString();
                 String description = ((TextView) view.findViewById(R.id.PRIORITY))
                         .getText().toString();
                 // Starting single contact activity
                 Intent in = new Intent(getApplicationContext(),
                         SingleContactActivity.class);
                 in.putExtra("TAG_NAME",name );
-                in.putExtra("TAG_EMAIL",cost);
+                in.putExtra("TAG_EMAIL",URL);
                 in.putExtra("TAG_PHONE_MOBILE", description);
                 startActivity(in);
 
@@ -246,7 +288,7 @@ public class MainActivity_speed extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // Showing progress dialog
+           // Showing progress dialog
             pDialog = new ProgressDialog(MainActivity_speed.this);
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
@@ -256,17 +298,60 @@ public class MainActivity_speed extends Activity {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            // Creating service handler class instance
-            ServiceHandler_speed sh = new ServiceHandler_speed();
-            // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(url, ServiceHandler_speed.GET);
-            Log.d("Response: ", "> " + jsonStr);
-            if (jsonStr != null) {
+            try {
+
+                String result = "";
+                HttpEntity httpEntity = null;
+                // HttpResponse httpResponse = null;
+                DefaultHttpClient httpClient = new DefaultHttpClient();
+                String username= "wa-v2-01-12345";
+                String password ="123456789";
+
+                String passwd = speed.getSinlgeEntry2("www.vocabmonk.com","speed");
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+                nameValuePairs.add(new BasicNameValuePair("id",passwd));
+                nameValuePairs.add(new BasicNameValuePair("callback", "WWW.vocabmonk.com"));
+                String paramsString = URLEncodedUtils.format(nameValuePairs, "UTF-8");
+                HttpGet httpGet = new HttpGet(url+"basic-auth/user/passwd"+"?"+paramsString);
+                UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username,password);
+                BasicScheme scheme = new BasicScheme();
+                Header authorizationHeader = scheme.authenticate(credentials, httpGet);
+                httpGet.addHeader(authorizationHeader);
+                HttpResponse httpResponse = httpClient.execute(httpGet);
+                // receive response as inputStream
+                httpEntity = httpResponse.getEntity();
+                is = httpEntity.getContent();
+                speed.close();
+            } catch (Exception e) {
+                Log.d("InputStream", e.getLocalizedMessage());
+            }
+
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                    result1=result1+line;
+                }
+                result1 = sb.toString();
+            } catch (Exception e) {
+                return null;
+            }
+
+            Log.d("Response: ", "> " + result1);
+            if (result1 != null) {
                 try {
-                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    JSONObject jsonObj = new JSONObject(result1);
                     // Getting JSON Array node
                     JSONObject jsonObj1 = jsonObj.getJSONObject("data").getJSONObject("response").getJSONObject("data").getJSONObject("yslow").getJSONObject("yslow");
-
+                     float cached=jsonObj1.getLong("page_size_c");
+                      cached_page_size=cached/1024;
+                     total_requests=jsonObj1.getLong("requests");
+                     float page_size1=jsonObj1.getLong("page_size");
+                     total_page_size=page_size1/1024;
+                    page_load_time=jsonObj1.getLong("load_time");
+                    y_score=jsonObj1.getLong("y_score");
                     if ((jsonObj1.optJSONArray("stats") == null) && (jsonObj1.optJSONObject("stats") == null)) {
 
                         HashMap<String, String> measuredResult_content_breakdown = new HashMap<String, String>();
@@ -370,12 +455,13 @@ public class MainActivity_speed extends Activity {
                             int score=int_job.getInt("score");
                             String value =int_job.getString("value");
                             HashMap<String, String> measuredResult_tips = new HashMap<String, String>();
-                            measuredResult_tips.put(MESSAGE, message);
-                            measuredResult_tips.put(SCORE, String.valueOf(score));
-                            measuredResult_tips.put(VALUE, value);
                             //
                             if ((int_job.optJSONArray("data") == null) && (int_job.optJSONObject("data") == null))
                             {
+                                measuredResult_tips.put(MESSAGE, message);
+                                measuredResult_tips.put(SCORE, String.valueOf(score));
+                                measuredResult_tips.put(VALUE, value);
+
                                 measuredResult_tips.put(URL,"");
                             }
                             else
@@ -386,17 +472,26 @@ public class MainActivity_speed extends Activity {
                                     JSONObject obj_data = jarray.getJSONObject(j);
                                     String ur=obj_data.getString("URL");
                                      fin = fin + ur;
-                                     fin =fin+ "|||";
+                                    // fin =fin+ "|||";
+                                    measuredResult_tips.put(URL,fin);
+                                    measuredResult_tips.put(MESSAGE, message);
+                                    measuredResult_tips.put(SCORE, String.valueOf(score));
+                                    measuredResult_tips.put(VALUE, value);
+                                    myResultList_speed_tips.add(measuredResult_tips);
+                                    Log.v("URLLLL",ur);
+
                                 }
 
-                                measuredResult_tips.put(URL,fin);
+
+
+
 
 
                             }
 
 
 
-                            myResultList_speed_tips.add(measuredResult_tips);
+
 
 
                             //
@@ -404,7 +499,56 @@ public class MainActivity_speed extends Activity {
                         }
                     }
 
+                    JSONObject jsonObjtips_yslow = jsonObj.getJSONObject("data").getJSONObject("response").getJSONObject("data").getJSONObject("yslow").getJSONObject("yslow");
+                    if ((jsonObjtips.optJSONArray("tips") == null) && (jsonObjtips.optJSONObject("tips") == null)) {
 
+                        HashMap<String, String> measuredResult_tips = new HashMap<String, String>();
+                        measuredResult_tips.put(MESSAGE, "");
+                        measuredResult_tips.put(SCORE, "");
+                        measuredResult_tips.put(VALUE, "");
+                        myResultList_speed_tips.add(measuredResult_tips);
+
+                    }else {
+                        JSONArray tips_array_yslow = jsonObjtips_yslow.getJSONArray("tips");
+
+                        for (int i = 0; i < tips_array_yslow.length();   i++) {
+                            JSONObject int_job_yslow = tips_array_yslow.getJSONObject(i);
+                            String message = int_job_yslow.getString("message");
+                            int score=int_job_yslow.getInt("score");
+                            String value =int_job_yslow.getString("value");
+                            HashMap<String, String> measuredResult_tips_yslow = new HashMap<String, String>();
+                            measuredResult_tips_yslow.put(MESSAGE, message);
+                            measuredResult_tips_yslow.put(SCORE, String.valueOf(score));
+                            measuredResult_tips_yslow.put(VALUE, value);
+                            //
+                            if ((int_job_yslow.optJSONArray("data") == null) && (int_job_yslow.optJSONObject("data") == null))
+                            {
+                                measuredResult_tips_yslow.put(URL,"");
+                            }
+                            else
+                            {
+                                JSONArray jarray=int_job_yslow.getJSONArray("data");
+                                for(int j=0;j<=jarray.length()-10;j++)
+                                {
+                                    JSONObject obj_data = jarray.getJSONObject(j);
+                                    String ur=obj_data.getString("URL");
+                                    fin = fin + ur;
+                                   // fin =fin+ "|||";
+                                }
+                                measuredResult_tips_yslow.put(URL,fin);
+
+
+                            }
+
+
+
+                            myResultList_speed_tips.add(measuredResult_tips_yslow);
+
+
+                            //
+
+                        }
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -423,7 +567,12 @@ public class MainActivity_speed extends Activity {
             // Dismiss the progress dialog
             Log.v("hietsh5", String.valueOf(size_total));
             Log.v("hietsh6000", String.valueOf(req_total));
-
+            TextView pageloadtime=(TextView)findViewById(R.id.PAGELOADTIME);
+            TextView totalpagesize=(TextView)findViewById(R.id.TOTALPAGESIZE);
+            TextView totalrequests =(TextView)findViewById(R.id.TOTALREQUESTS);
+            TextView cachedpagesize=(TextView)findViewById(R.id.CACHEDPAGESIZE);
+            TextView score=(TextView)findViewById(R.id.SCORE);
+            TextView grade=(TextView)findViewById(R.id.GRADE);
             TextView req = (TextView) findViewById(R.id.REQUEST_TOTAL);
             TextView size = (TextView) findViewById(R.id.REQUEST_SIZE);
             TextView req_2 = (TextView) findViewById(R.id.REQUEST_TOTAL_2);
@@ -433,7 +582,26 @@ public class MainActivity_speed extends Activity {
             req_2.setText(String.valueOf(req_total_c));
             size_2.setText(String.valueOf(round((float) size_total_c, 2)));
             //size.setText((int) size_total);
-
+            if(String.valueOf(page_load_time)!="")
+            {
+                pageloadtime.setText(String.valueOf(page_load_time));
+            }
+            if(String.valueOf(total_page_size)!="")
+            {
+                totalpagesize.setText(String.valueOf(total_page_size)+" kb");
+            }
+            if(String.valueOf(total_requests)!="")
+            {
+                totalrequests.setText(String.valueOf(total_requests));
+            }
+            if(String.valueOf(cached_page_size)!="")
+            {
+                cachedpagesize.setText(String.valueOf(cached_page_size)+" kb");
+            }
+            if(String.valueOf(y_score)!="")
+            {
+                score.setText(String.valueOf(y_score));
+            }
             mchart = new PieChart(getApplicationContext());
             linearLayout.addView(mchart);
             linearLayout.setBackgroundColor(Color.LTGRAY);
@@ -467,7 +635,8 @@ public class MainActivity_speed extends Activity {
             linearLayout2.addView(mchart2);
             linearLayout2.setBackgroundColor(Color.LTGRAY);
             mchart2.setUsePercentValues(true);
-            mchart2.setDescription("1ST TIME\n" + "STATS");
+            mchart2.setDescription("CACHED\n" +
+                    "STATS");
             mchart2.setDrawHoleEnabled(true);
             mchart2.setHoleColorTransparent(true);
             mchart2.setHoleRadius(40);
@@ -494,8 +663,11 @@ public class MainActivity_speed extends Activity {
             l2.setXEntrySpace(5);
 
 
-            if (pDialog.isShowing())
+           if (pDialog.isShowing())
                 pDialog.dismiss();
+            ScrollView sv;
+            sv=(ScrollView)findViewById(R.id.scrollView_speed);
+            sv.fullScroll(ScrollView.FOCUS_UP);
 
         }
     }
@@ -552,7 +724,8 @@ public class MainActivity_speed extends Activity {
             xVals.add(xData[i]);
 
         //creating Pie data sets
-        PieDataSet dataSet= new PieDataSet(yvals1,"LINKS AVAILABLE");
+        PieDataSet dataSet= new PieDataSet(yvals1,"1ST TIME\n" +
+                "STATS\n");
         dataSet.setSliceSpace(3);
         dataSet.setSelectionShift(5);
         //Adding colours

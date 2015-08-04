@@ -46,6 +46,7 @@ public class MainActivity_mobile extends Activity {
      WebView web;
     Handler handler;
     ProgressBar progressBar;
+    ProgressBar progressBar2;
     private ListView resultList_mobile;
     ArrayList<HashMap<String, String>> myResultList_mobile;
     private ProgressDialog progressDialog;
@@ -235,7 +236,7 @@ public class MainActivity_mobile extends Activity {
             }
 
             web = (WebView) findViewById(R.id.MOBILE);
-            progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+            progressBar = (ProgressBar) findViewById(R.id.PROGRESSMOBILE);
 
             web.setWebViewClient(new myWebClient());
             web.getSettings().setJavaScriptEnabled(true);
@@ -246,95 +247,10 @@ public class MainActivity_mobile extends Activity {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-         /*   mWebview= (WebView) findViewById(R.id.MOBILE);
-
-            //final Activity activity = this;
-
-            mWebview.getSettings().setJavaScriptEnabled(true);
-            pbr = (ProgressBar)findViewById(R.id.progressBar1);
-
-
-            mWebview.loadUrl(DATA_URL);
-
-           mWebview.setWebViewClient(new WebViewClient() {
-                public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    view.loadUrl(url);
-                    return true;
-                }
-
-                @Override
-                public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                    super.onPageStarted(view, url, favicon);
-                    // Show progressbar
-                   pbr.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                    // Show error
-                    // Stop spinner or progressbar
-                    pbr.setVisibility(View.GONE);
-
-                }
-
-
-                @Override
-                public void onPageFinished(WebView view, String url) {
-                    super.onPageFinished(view, url);
-                    // Stop spinner or progressBar
-                    pbr.setVisibility(View.GONE);
-
-                }
-
-
-            });*/
-
-
-/*
-            mWebview=(WebView)findViewById(R.id.MOBILE_VIEW);
-            WebView desktopview=(WebView)findViewById(R.id.MAC_VIEW);
-
-            mWebview.getSettings().setJavaScriptEnabled(true);
-            mWebview.setWebViewClient(new WebViewClient() {
-                public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                    Toast.makeText(getApplicationContext(), description, Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            mWebview .loadUrl(DATA_URL);*/
-            WebView desktopview=(WebView)findViewById(R.id.MAC_VIEW);
+            progressBar2= (ProgressBar) findViewById(R.id.PROGRESSMAC);
+            WebView desktopview=(WebView)findViewById(R.id.MAC);
+            desktopview.setWebViewClient(new myWebClient2());
             desktopview.getSettings().setJavaScriptEnabled(true);
-            desktopview.setWebViewClient(new WebViewClient() {
-                public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                    Toast.makeText(getApplicationContext(), description, Toast.LENGTH_SHORT).show();
-                }
-            });
-
-
             desktopview.getSettings().setUserAgentString("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0");
             desktopview .loadUrl(DATA_URL);
 
@@ -371,4 +287,28 @@ public class MainActivity_mobile extends Activity {
         }
     }
 
+    private class myWebClient2 extends WebViewClient {
+        @Override
+        public void onPageStarted(WebView view, String url2, Bitmap favicon) {
+            // TODO Auto-generated method stub
+            super.onPageStarted(view, url2, favicon);
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url2) {
+            // TODO Auto-generated method stub
+            progressBar2.setVisibility(View.VISIBLE);
+            view.loadUrl(url2);
+            return true;
+
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url2) {
+            // TODO Auto-generated method stub
+            super.onPageFinished(view, url2);
+
+            progressBar2.setVisibility(View.GONE);
+        }
+    }
 }
